@@ -1,0 +1,9 @@
+.cache
+.conda
+.ipython
+.pandoc
+.python_history
+*.pyc
+_codebraid
+bin
+dist

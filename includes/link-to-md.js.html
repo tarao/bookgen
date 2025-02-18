@@ -1,0 +1,24 @@
+<script>
+ (function () {
+   const callback = () => {
+     const header = document.querySelector('header');
+     if (!header) return;
+     if (header.querySelector('div.source-link')) return;
+
+     const div = document.createElement('div');
+     div.className = 'source-link';
+     const a = document.createElement('a');
+     a.href = './book.md';
+     const text = document.createTextNode('plain text version');
+     a.appendChild(text);
+     div.appendChild(a);
+     header.appendChild(div);
+   };
+
+   document.addEventListener('DOMContentLoaded', callback);
+
+   const html = document.querySelector('html');
+   const observer = new MutationObserver(callback);
+   observer.observe(html, { childList: true, subtree: true });
+ })();
+</script>

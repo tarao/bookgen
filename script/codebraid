@@ -1,0 +1,15 @@
+#!/bin/env bash
+
+set -xe
+
+ROOT="$(cd $(dirname "$0")/..; pwd)"
+cd "$ROOT"
+
+[ -t 0 ] && tty='-t'
+
+script/docker/codebraid/build
+docker run --rm -i $tty \
+       -u `id -u`:`id -g` \
+       -e HOME=/opt/workspace \
+       -v "$(pwd)":/opt/workspace \
+       bookgen/codebraid "$@"

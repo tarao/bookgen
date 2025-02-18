@@ -1,0 +1,8 @@
+#!/bin/env bash
+
+set -xe
+
+ROOT="$(cd $(dirname "$0")/..; pwd)"
+cd "$ROOT"
+
+script/codebraid pandoc "$@"

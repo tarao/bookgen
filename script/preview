@@ -1,0 +1,42 @@
+#!/bin/env bash
+
+ROOT="$(cd $(dirname "$0")/..; pwd)"
+cd "$ROOT"
+
+source script/env.sh
+
+DIR=$(dirname "$OUTPUT")
+mkdir -p "$DIR"
+
+rm -r "$DIR/includes"
+ln -s "$(pwd)/includes" "$DIR/includes"
+
+[ -r "$OUTPUT" ] || {
+    echo '<html><head>'   >> "$OUTPUT"
+    for f in includes/*.html; do
+        cat "$f" >> "$OUTPUT"
+    done
+    echo '</head><body>generating...</body></html>' >> "$OUTPUT"
+}
+
+URL="http://localhost:$PORT/$OUTPUT"
+echo 'Running preview server at:'
+echo "$URL"
+python3 -m local.server "$PORT" 2>/dev/null &
+PID1="$!"
+
+if which open >/dev/null; then
+    open "$URL"
+elif which xdg-open >/dev/null; then
+    xdg-open "$URL"
+fi
+
+mkdir -p bin
+GOBIN="$(pwd)/bin" go install github.com/meain/on-change@latest
+
+bin/on-change src/*.md 'make html' &
+PID2="$!"
+
+trap "kill $PID1; kill $PID2" SIGINT
+
+wait

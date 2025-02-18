@@ -1,0 +1,15 @@
+#!/bin/env bash
+
+set -xe
+
+ROOT="$(cd $(dirname "$0")/..; pwd)"
+cd "$ROOT"
+
+source script/env.sh
+
+mkdir -p $(dirname "${MARKDOWN_OUTPUT}")
+script/codebraid codebraid pandoc --overwrite --standalone \
+                 --from commonmark_x \
+                 --to markdown_github+$EXTENSIONS \
+                 --metadata-file src/metadata.yaml \
+                 -o "${MARKDOWN_OUTPUT}" src/*.md

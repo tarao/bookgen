@@ -1,0 +1,146 @@
+body {
+    font-size: 100%;
+}
+
+h2 {
+    font-size: 2em;
+    margin: 0.67em 0;
+    padding: 0.33em 0.67em;
+    border: 1px solid black;
+}
+
+h3 {
+    font-size: 24px;
+    border-bottom: 1px solid #ccc;
+    color: #000;
+}
+
+h4 {
+    font-size: 18px;
+    color: #333;
+}
+
+p {
+    position: relative;
+}
+
+header .source-link {
+    text-align: right;
+}
+
+.todo:before {
+    display: inline-block;
+    position: absolute;
+    left: -6em;
+    margin-left: -1em;
+    border: solid 1px red;
+    content: "TODO";
+    padding: 0 0.3em;
+}
+.todo {
+    color: red;
+    text-decoration: underline;
+}
+
+.note:before {
+    display: inline-block;
+    position: absolute;
+    left: -6em;
+    margin-left: -1em;
+    border: solid 1px #999933;
+    content: "NOTE";
+    padding: 0 0.3em;
+}
+.note {
+    color: #999933;
+}
+
+.warning:before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Cpath%20style%3D%22fill%3A%23999933%3Bfill-opacity%3A1%22%20d%3D%22M6.457%201.047c.659-1.234%202.427-1.234%203.086%200l6.082%2011.378A1.75%201.75%200%200%201%2014.082%2015H1.918a1.75%201.75%200%200%201-1.543-2.575Zm1.763.707a.25.25%200%200%200-.44%200L1.698%2013.132a.25.25%200%200%200%20.22.368h12.164a.25.25%200%200%200%20.22-.368Zm.53%203.996v2.5a.75.75%200%200%201-1.5%200v-2.5a.75.75%200%200%201%201.5%200ZM9%2011a1%201%200%201%201-2%200%201%201%200%200%201%202%200Z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+    background-size: contain;
+    display: inline-block;
+    float: left;
+    margin-right: 0.5em;
+}
+.warning {
+    border-left: 4px solid #999933;
+    padding: 0 15px;
+    color: #999933;
+}
+
+/* code block */
+
+pre {
+    background-color: inherit;
+}
+
+code {
+    color: inherit;
+}
+
+div.sourceCode {
+    overflow: visible;
+    border-radius: 3px;
+}
+pre > code.sourceCode > span > a:first-child:before {
+    position: absolute;
+    left: -5.7em;
+    bottom: 0;
+    text-decoration: none;
+}
+
+pre.numberSource {
+    margin-left: 0;
+    padding-left: 10px;
+}
+pre.numberSource code > span {
+    left: 0;
+}
+
+.code-caption {
+    display: inline-block;
+    font-size: 13px;
+    line-height: 19px;
+    font-family: monospace, serif;
+    background-color: #777;
+    color: #eee;
+    padding: 2px 6px;
+    margin: 0 10px;
+}
+
+.code-caption p {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.code-caption p:before {
+    content: "code:";
+}
+
+.code-caption + div.sourceCode {
+    margin-top: -12px;
+}
+
+.code-caption + div.sourceCode > pre.sourceCode {
+    padding-top: 14px;
+}
+
+pre.stdout {
+    padding-top: 14px;
+    margin-top: 20px;
+    background-color: #303030;
+    color: #cccccc;
+}
+
+pre.stdout:before {
+    content: "Output";
+    background-color: #777;
+    color: #eee;
+    padding: 2px 6px;
+    position: absolute;
+    margin-top: -27px;
+}

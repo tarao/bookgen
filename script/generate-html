@@ -1,0 +1,33 @@
+#!/bin/env bash
+
+set -xe
+
+ROOT="$(cd $(dirname "$0")/..; pwd)"
+cd "$ROOT"
+
+source script/env.sh
+
+html=()
+for f in includes/*.html; do
+    html+=('-H' "$f")
+done
+
+css=()
+for f in includes/*.css; do
+    css+=('--css' "$f")
+done
+
+script/pandoc \
+    --standalone \
+    --mathjax \
+    "${html[@]}" \
+    "${css[@]}" \
+    --number-sections --top-level-division=part \
+    --shift-heading-level-by=1 \
+    --toc \
+    --metadata-file src/metadata.yaml \
+    --highlight-style=zenburn \
+    --from markdown_github+$EXTENSIONS \
+    --to html5 \
+    -o "$OUTPUT" \
+    "${MARKDOWN_OUTPUT}"
