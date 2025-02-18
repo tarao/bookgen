@@ -22,7 +22,7 @@ Original Notations {-}
 ### WARNING Notation {-}
 
 ::: warning
-Some you have to care about
+Something you have to care about
 :::
 
 Pandoc Markdown {-}
