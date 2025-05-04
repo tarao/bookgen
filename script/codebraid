@@ -1,15 +1,22 @@
 #!/bin/env bash
 
-set -xe
+set -e
 
-ROOT="$(cd $(dirname "$0")/..; pwd)"
-cd "$ROOT"
+BOOKGEN_ROOT="$(cd $(dirname "$0")/..; pwd)"
+cd "${BOOKGEN_ROOT}"
+
+source script/env.sh
 
 [ -t 0 ] && tty='-t'
+
+set -x
 
 script/docker/codebraid/build
 docker run --rm -i $tty \
        -u `id -u`:`id -g` \
        -e HOME=/opt/workspace \
-       -v "$(pwd)":/opt/workspace \
+       -v `pwd`:/opt/workspace \
+       -v "${BOOKGEN_INCLUDE_DIR}":/opt/workspace/includes \
+       -v "${BOOKGEN_SOURCE_DIR}":/opt/workspace/src \
+       -v "${BOOKGEN_OUTPUT_DIR}":/opt/workspace/dist \
        bookgen/codebraid "$@"

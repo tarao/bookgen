@@ -1,28 +1,30 @@
 #!/bin/env bash
 
-ROOT="$(cd $(dirname "$0")/..; pwd)"
-cd "$ROOT"
+set -e
+shopt -s globstar
+
+BOOKGEN_ROOT="$(cd $(dirname "$0")/..; pwd)"
+cd "${BOOKGEN_ROOT}"
 
 source script/env.sh
 
-DIR=$(dirname "$OUTPUT")
-mkdir -p "$DIR"
+set -x
 
-rm -r "$DIR/includes"
-ln -s "$(pwd)/includes" "$DIR/includes"
+rm -rf "${BOOKGEN_OUTPUT_DIR}/includes"
+ln -s "${BOOKGEN_INCLUDE_DIR}" "${BOOKGEN_OUTPUT_DIR}/includes"
 
-[ -r "$OUTPUT" ] || {
-    echo '<html><head>'   >> "$OUTPUT"
-    for f in includes/*.html; do
-        cat "$f" >> "$OUTPUT"
+[ -r "${BOOKGEN_OUTPUT_HTML}" ] || {
+    echo '<html><head>' >> "${BOOKGEN_OUTPUT_HTML}"
+    for f in "${BOOKGEN_INCLUDE_HTML[@]}"; do
+        cat "$f" >> "${BOOKGEN_OUTPUT_HTML}"
     done
-    echo '</head><body>generating...</body></html>' >> "$OUTPUT"
+    echo '</head><body>generating...</body></html>' >> "${BOOKGEN_OUTPUT_HTML}"
 }
 
-URL="http://localhost:$PORT/$OUTPUT"
+URL="http://localhost:${BOOKGEN_PREVIEW_PORT}/${BOOKGEN_OUTPUT_HTML##*/}"
 echo 'Running preview server at:'
 echo "$URL"
-python3 -m local.server "$PORT" 2>/dev/null &
+( cd "${BOOKGEN_OUTPUT_DIR}" && PYTHONPATH="${BOOKGEN_ROOT}" python3 -m local.server "${BOOKGEN_PREVIEW_PORT}" 2>/dev/null ) &
 PID1="$!"
 
 if which open >/dev/null; then
@@ -34,7 +36,7 @@ fi
 mkdir -p bin
 GOBIN="$(pwd)/bin" go install github.com/meain/on-change@latest
 
-bin/on-change src/*.md 'make html' &
+bin/on-change "${BOOKGEN_SOURCE_DIR}"/**/*.md 'make html' &
 PID2="$!"
 
 trap "kill $PID1; kill $PID2" SIGINT

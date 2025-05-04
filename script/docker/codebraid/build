@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ROOT="$(cd $(dirname "$0")/../../..; pwd)"
-cd "$ROOT"
+BOOKGEN_ROOT="$(cd $(dirname "$0")/../../..; pwd)"
+cd "${BOOKGEN_ROOT}"
 
 docker build "$@" -t 'bookgen/codebraid' script/docker/codebraid

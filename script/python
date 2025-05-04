@@ -2,7 +2,7 @@
 
 set -xe
 
-ROOT="$(cd $(dirname "$0")/..; pwd)"
-cd "$ROOT"
+BOOKGEN_ROOT="$(cd $(dirname "$0")/..; pwd)"
+cd "${BOOKGEN_ROOT}"
 
 script/codebraid python

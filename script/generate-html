@@ -1,21 +1,23 @@
 #!/bin/env bash
 
-set -xe
+set -e
 
-ROOT="$(cd $(dirname "$0")/..; pwd)"
-cd "$ROOT"
+BOOKGEN_ROOT="$(cd $(dirname "$0")/..; pwd)"
+cd "${BOOKGEN_ROOT}"
 
 source script/env.sh
 
 html=()
-for f in includes/*.html; do
+for f in "${DOCKER_INCLUDE_HTML[@]}"; do
     html+=('-H' "$f")
 done
 
 css=()
-for f in includes/*.css; do
+for f in "${DOCKER_INCLUDE_CSS[@]}"; do
     css+=('--css' "$f")
 done
+
+set -x
 
 script/pandoc \
     --standalone \
@@ -26,8 +28,8 @@ script/pandoc \
     --shift-heading-level-by=1 \
     --toc \
     --metadata-file src/metadata.yaml \
-    --highlight-style=zenburn \
-    --from markdown_github+$EXTENSIONS \
+    --highlight-style="${BOOKGEN_HIGHLIGHT_STYLE}" \
+    --from markdown_github+"${BOOKGEN_EXTENSIONS}" \
     --to html5 \
-    -o "$OUTPUT" \
-    "${MARKDOWN_OUTPUT}"
+    -o "${DOCKER_OUTPUT_HTML}" \
+    "${DOCKER_OUTPUT_MARKDOWN}"

@@ -9,11 +9,6 @@ Other Languages
 
 Some other languages (not only Python) should be supported.
 
-Portability
------------
-
-It is good to have the generator outside the repository of manuscripts.
-
 GitHub Actions
 --------------
 

@@ -1,15 +1,17 @@
 #!/bin/env bash
 
-set -xe
+set -e
 
-ROOT="$(cd $(dirname "$0")/..; pwd)"
-cd "$ROOT"
+BOOKGEN_ROOT="$(cd $(dirname "$0")/..; pwd)"
+cd "${BOOKGEN_ROOT}"
 
 source script/env.sh
 
-mkdir -p $(dirname "${MARKDOWN_OUTPUT}")
+set -x
+
+mkdir -p $(dirname "${BOOKGEN_OUTPUT_MARKDOWN}")
 script/codebraid codebraid pandoc --overwrite --standalone \
                  --from commonmark_x \
-                 --to markdown_github+$EXTENSIONS \
+                 --to markdown_github+"${BOOKGEN_EXTENSIONS}" \
                  --metadata-file src/metadata.yaml \
-                 -o "${MARKDOWN_OUTPUT}" src/*.md
+                 -o "${DOCKER_OUTPUT_MARKDOWN}" "${DOCKER_SOURCE[@]}"
