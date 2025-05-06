@@ -71,6 +71,10 @@ header .source-link {
     color: #999933;
 }
 
+.hidden {
+    display: none;
+}
+
 /* code block */
 
 pre {
