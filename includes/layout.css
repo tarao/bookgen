@@ -28,7 +28,7 @@ header .source-link {
     text-align: right;
 }
 
-.todo:before {
+.todo:before, div.note p:before {
     display: inline-block;
     position: absolute;
     left: -6em;
@@ -41,8 +41,11 @@ header .source-link {
     color: red;
     text-decoration: underline;
 }
+div.todo {
+    position: relative;
+}
 
-.note:before {
+.note:before, div.note p:before {
     display: inline-block;
     position: absolute;
     left: -6em;
@@ -53,6 +56,9 @@ header .source-link {
 }
 .note {
     color: #999933;
+}
+div.note {
+    position: relative;
 }
 
 .warning:before {
