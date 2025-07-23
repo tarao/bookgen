@@ -60,6 +60,9 @@ div.todo {
 div.note {
     position: relative;
 }
+div.note blockquote p:before {
+    display: none;
+}
 
 .warning:before {
     content: '';
