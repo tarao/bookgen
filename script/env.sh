@@ -17,12 +17,15 @@ echo -e "Metadata:\n	${BOOKGEN_METADATA}"
 
 default_extensions=(
     bracketed_spans
+    definition_lists
     fancy_lists
     fenced_code_attributes
     fenced_code_blocks
     fenced_divs
     header_attributes
+    markdown_in_html_blocks
     tex_math_dollars
+    tex_math_single_backslash
     yaml_metadata_block
 )
 echo -e "Extensions:\n	${BOOKGEN_EXTENSIONS:=$(IFS=+; echo "${default_extensions[*]}")}"
